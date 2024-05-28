@@ -4,6 +4,12 @@ project(Library)
 set(SOURCE_FILES
     src/model/Client.cpp
     include/model/Client.h
+    src/model/Address.cpp
+    include/model/Address.h
+    src/model/Vehicle.cpp
+    include/model/Vehicle.h
+    src/model/Rent.cpp
+    include/model/Rent.h
    )
 
 # Utwórz bibliotekę typu STATIC, SHARED albo MODULE ze wskazanych źródeł
@@ -26,6 +32,9 @@ include_directories(
 # Zdefiniowanie plików źródłowych testów
 set(SOURCE_TEST_FILES # tu w przyszłości będą dodawane pliki źródłowe testów
 test/ClientTest.cpp
+test/AddressTest.cpp
+test/VehicleTest.cpp
+test/RentTest.cpp
 test/master.cpp
 )
 
