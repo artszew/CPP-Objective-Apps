@@ -1,5 +1,8 @@
+/**
+ * @file Client.h
+ * @brief Plik zawierający deklarację klasy Client, która reprezentuje Klienta.
+ */
 #ifndef CLIENT_H
-
 #define CLIENT_H
 
 #include <string>
@@ -30,6 +33,7 @@ public:
     * @param lastName Nazwisko klienta.
     * @param personalID Numer personalny klienta.
     * @param address Adres klienta
+    * @param currentRents Wypozyczenia klienta
     */
 
     Client(const std::string& firstName, const std::string& lastName, const std::string& personalID, Address* address);
@@ -41,7 +45,6 @@ public:
      *
      * @return Informacje o kliencie w formie łańcucha znaków.
      */
-
     std::string getInfo() const;
 
     /**
@@ -71,16 +74,12 @@ public:
      */
     void setLastName(const std::string& lastName);
 
-
-
     /**
      * @brief Metoda pobierająca nazwisko klienta.
      *
      * @return Nazwisko klienta.
      */
     const std::string& getLastName() const;
-
-
 
     /**
      * @brief Metoda pobierająca numer personalny klienta.
@@ -93,7 +92,30 @@ public:
     void setAddress(Address* newAddress);
 
     Address* getAddress() const;
-   
+	
+   void addRent(Rent* rent);
+
+    /**
+    * @brief Dodaje nowe wypożyczenie do wektora aktualnych wypożyczeń.
+    *
+    * @param rent Wskaźnik do wypożyczenia.
+    */
+    void addCurrentRent(Rent* rent);
+    
+    /**
+    * @brief Usuwa dotychczasowe wypożyczenie z wektora aktualnych wypożyczeń.
+    *
+    * @param rent Wskaźnik do wypożyczenia.
+    */
+    void removeCurrentRent(Rent* rent);
+    
+    /**
+    * @brief Zwraca wektor wskaźników do aktualnych wypożyczeń klienta.
+    *
+    * @return Wektor wskaźników do aktualnych wypożyczeń klienta.
+    */
+    std::vector<Rent*> getCurrentRents() const;
+    
     /**
      * @brief Destruktor klasy Client.
      *

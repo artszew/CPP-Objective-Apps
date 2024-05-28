@@ -1,3 +1,7 @@
+/**
+ * @file Vehicle.h
+ * @brief Plik zawierający deklarację klasy Vehicle, która reprezentuje pojazd.
+ */
 #ifndef VEHICLE_H
 #define VEHICLE_H
 
@@ -20,9 +24,11 @@ public:
      *
      * @param plateNumber Numer rejestracyjny pojazdu.
      * @param basePrice Cena za 1 dobę wypożyczenia pojazdu.
+     * @param rented Flaga określająca, czy pojazd jest aktualnie wypożyczony.
      */
     Vehicle(const std::string& plateNumber, unsigned int basePrice);
     ~Vehicle();
+    
     /**
      * @brief Metoda pobierająca informacje o pojeździe.
      *
@@ -69,7 +75,7 @@ public:
      *
      * @param rented Wartość flagi rented.
      */
-    void setRented(bool rented);
+     void setRented(bool rented);
 
     /**
      * @brief Metoda sprawdzająca, czy pojazd jest aktualnie wypożyczony.

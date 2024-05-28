@@ -1,32 +1,47 @@
-#include "../../library/include/model/Rent.h"
-#include "../../library/include/model/Client.h"
-#include "../../library/include/model/Vehicle.h"
+/**
+ * @file Rent.cpp
+ * @brief Plik zawierający definicje metod klasy Rent, która reprezentuje wypożyczenie pojazdu.
+ */
+#include "../include/model/Rent.h"
+#include "../include/model/Client.h"
+#include "../include/model/Vehicle.h"
+#include <boost/date_time/posix_time/posix_time.hpp>
+#include <string>
+
+namespace pt = boost::posix_time;
+namespace gr = boost::gregorian;
+
 /**
  * @brief Konstruktor parametrowy klasy Rent.
- *
- * Tworzy nowy obiekt wypożyczenia z określonym identyfikatorem, klientem i pojazdem.
- *
  * @param id Identyfikator wypożyczenia.
+ * @param beginTime Czas rozpoczęcia wypożyczenia.
+ * @param endTime Czas zakończenia wypożyczenia.
  * @param client Wskaźnik na klienta.
  * @param vehicle Wskaźnik na pojazd.
  */
-Rent::Rent(unsigned int id, const Client* client, Vehicle* vehicle)
-    : id(id), client(client), vehicle(vehicle) 
-    {
-    if (vehicle != nullptr) {
-        vehicle->setRented(true);}
+Rent::Rent(unsigned int id, const pt::ptime& beginTime, const pt::ptime& endTime, Client* client, Vehicle* vehicle)
+        : id(id), beginTime(beginTime), endTime(endTime), rentCost(0), client(client), vehicle(vehicle) {
+    if (beginTime == pt::not_a_date_time) {
+        this->beginTime = pt::second_clock::local_time(); // Ustawienie czasu rozpoczęcia na czas bieżący
     }
+    if (endTime != pt::not_a_date_time) {
+        this->endTime = endTime;
+    }
+    if (vehicle != nullptr) {
+        vehicle->setRented(true);
+    }
+}
 
 /**
- * @brief Metoda pobierająca informacje o wypożyczeniu.
- *
- * Zwraca informacje o wypożyczeniu, takie jak identyfikator, imię i nazwisko klienta oraz numer rejestracyjny pojazdu.
- *
+ * @brief Zwraca informacje o wypożyczeniu.
  * @return Informacje o wypożyczeniu w formie łańcucha znaków.
  */
 std::string Rent::getInfo() const {
     std::string info = "Rent ID: " + std::to_string(id) + "\n";
     if (client != nullptr && vehicle != nullptr) {
+        info += "Begin time: " + boost::posix_time::to_simple_string(beginTime) + "\n";
+        info += "End time: " + boost::posix_time::to_simple_string(endTime) + "\n";
+        info += "Rent cost: " + std::to_string(rentCost) + "\n";
         info += "Client: " + client->getFirstName() + " " + client->getLastName() + "\n";
         info += "Vehicle Plate Number: " + vehicle->getPlateNumber();
     }
@@ -34,8 +49,47 @@ std::string Rent::getInfo() const {
 }
 
 /**
- * @brief Metoda pobierająca identyfikator wypożyczenia.
- *
+ * @brief Zwraca liczbę dni wypożyczenia.
+ * @return Liczba dni wypożyczenia.
+ */
+int Rent::getRentDays() const {
+    if (endTime == pt::not_a_date_time || endTime < beginTime || (endTime - beginTime) < pt::minutes(1)) {
+        return 0;
+    } else {
+        return ((endTime - beginTime).hours() / 24) + 1;
+    }
+}
+
+/**
+ * @brief Kończy wypożyczenie.
+ * @param endTime Czas zakończenia wypożyczenia.
+ */
+void Rent::endRent(const pt::ptime& endTime) {
+    if (endTime == pt::not_a_date_time) {
+        this->endTime = pt::second_clock::local_time();
+    } else if (endTime < beginTime) {
+        this->endTime = beginTime;
+    } else {
+        this->endTime = endTime;
+    }
+
+    this->getRentDays();
+    if (this->getRentDays() > 0 && vehicle != nullptr) {
+        this->rentCost = this->getRentDays() * vehicle->getBasePrice();
+    } else {
+        this->rentCost = 0;
+    }
+
+    if (vehicle != nullptr) {
+        vehicle->setRented(false);
+    }
+    if (client != nullptr) {
+        client->removeCurrentRent(this);
+    }
+}
+
+/**
+ * @brief Zwraca identyfikator wypożyczenia.
  * @return Identyfikator wypożyczenia.
  */
 unsigned int Rent::getId() const {
@@ -43,8 +97,7 @@ unsigned int Rent::getId() const {
 }
 
 /**
- * @brief Metoda pobierająca wskaźnik na klienta.
- *
+ * @brief Zwraca wskaźnik na klienta.
  * @return Wskaźnik na klienta.
  */
 const Client* Rent::getClient() const {
@@ -52,11 +105,18 @@ const Client* Rent::getClient() const {
 }
 
 /**
- * @brief Metoda pobierająca wskaźnik na pojazd.
- *
+ * @brief Zwraca wskaźnik na pojazd.
  * @return Wskaźnik na pojazd.
  */
 const Vehicle* Rent::getVehicle() const {
     return vehicle;
+}
+
+/**
+ * @brief Zwraca koszt wypożyczenia.
+ * @return Koszt wypożyczenia.
+ */
+int Rent::getRentCost() const {
+    return rentCost;
 }
 

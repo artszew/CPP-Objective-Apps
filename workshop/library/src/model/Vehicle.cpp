@@ -1,5 +1,8 @@
+/**
+ * @file Vehicle.cpp
+ * @brief Plik zawierający definicje metod klasy Vehicle, która reprezentuje pojazd.
+ */
 #include <iostream>
-
 #include "../../library/include/model/Vehicle.h"
 
 using namespace std;
@@ -61,13 +64,25 @@ void Vehicle::setBasePrice(unsigned int& basePrice) {
         this->basePrice = basePrice;
     }
 }
-void Vehicle::setRented(bool rented) {
-    this->rented = rented; 
-}
 
-bool Vehicle::isRented() const {
-    return rented; 
-}
+     /**
+     * @brief Ustawia status wypożyczenia pojazdu.
+     *
+     * @param rented Flaga określająca, czy pojazd jest wypożyczony.
+     */
+    void Vehicle::setRented(bool rented) {
+        this->rented = rented;
+    }
+
+    /**
+     * @brief Sprawdza, czy pojazd jest aktualnie wypożyczony.
+     *
+     * @return True, jeśli pojazd jest wypożyczony, w przeciwnym razie false.
+     */
+    bool Vehicle::isRented() const {
+        return rented;
+    }
+    
 // destruktor klasy Vehicle
 Vehicle::~Vehicle() {}
 

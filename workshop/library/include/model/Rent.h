@@ -1,57 +1,86 @@
+/**
+ * @file Rent.h
+ * @brief Plik zawierający deklarację klasy Rent, która reprezentuje wypożyczenie pojazdu.
+ */
 #ifndef RENT_H
 #define RENT_H
 
+#include <boost/date_time/posix_time/posix_time.hpp>
+#include <boost/date_time/gregorian/gregorian.hpp>
 #include <string>
+
+namespace pt = boost::posix_time;
+namespace gr = boost::gregorian;
 
 class Client;
 class Vehicle;
 
+/**
+ * @class Rent
+ * @brief Klasa reprezentująca wypożyczenie pojazdu.
+ */
 class Rent {
 private:
     unsigned int id; /**< Identyfikator wypożyczenia */
-    const Client* client; /**< Wskaźnik na klienta */
-    const Vehicle* vehicle; /**< Wskaźnik na pojazd */
+    pt::ptime beginTime; /**< Czas rozpoczęcia wypożyczenia */
+    pt::ptime endTime; /**< Czas zakończenia wypożyczenia */
+    int rentCost; /**< Koszt wypożyczenia */
+    Client* client; /**< Wskaźnik na klienta */
+    Vehicle* vehicle; /**< Wskaźnik na pojazd */
 
 public:
     /**
      * @brief Konstruktor parametrowy klasy Rent.
-     *
      * @param id Identyfikator wypożyczenia.
+     * @param beginTime Czas rozpoczęcia wypożyczenia.
+     * @param endTime Czas zakończenia wypożyczenia.
      * @param client Wskaźnik na klienta.
      * @param vehicle Wskaźnik na pojazd.
      */
-    Rent(unsigned int id, const Client* client, Vehicle* vehicle);
+    Rent(unsigned int id, const pt::ptime& beginTime, const pt::ptime& endTime, Client* client, Vehicle* vehicle);
 
     /**
-     * @brief Metoda pobierająca informacje o wypożyczeniu.
-     *
-     * Zwraca informacje o wypożyczeniu, takie jak identyfikator, imię i nazwisko klienta oraz numer rejestracyjny pojazdu.
-     *
+     * @brief Zwraca informacje o wypożyczeniu.
      * @return Informacje o wypożyczeniu w formie łańcucha znaków.
      */
     std::string getInfo() const;
 
     /**
-     * @brief Metoda pobierająca identyfikator wypożyczenia.
-     *
+     * @brief Zwraca identyfikator wypożyczenia.
      * @return Identyfikator wypożyczenia.
      */
     unsigned int getId() const;
 
     /**
-     * @brief Metoda pobierająca wskaźnik na klienta.
-     *
+     * @brief Zwraca liczbę dni wypożyczenia.
+     * @return Liczba dni wypożyczenia.
+     */
+    int getRentDays() const;
+
+    /**
+     * @brief Kończy wypożyczenie.
+     * @param endTime Czas zakończenia wypożyczenia.
+     */
+    void endRent(const pt::ptime& endTime);
+
+    /**
+     * @brief Zwraca koszt wypożyczenia.
+     * @return Koszt wypożyczenia.
+     */
+    int getRentCost() const;
+
+    /**
+     * @brief Zwraca wskaźnik na klienta.
      * @return Wskaźnik na klienta.
      */
     const Client* getClient() const;
 
     /**
-     * @brief Metoda pobierająca wskaźnik na pojazd.
-     *
+     * @brief Zwraca wskaźnik na pojazd.
      * @return Wskaźnik na pojazd.
      */
     const Vehicle* getVehicle() const;
 };
 
-#endif
+#endif // RENT_H
 

@@ -1,5 +1,8 @@
+/**
+ * @file Address.cpp
+ * @brief Plik zawierający definicje metod klasy Address, która reprezentuje adres klienta.
+ */
 #include <iostream>
-
 #include "../../library/include/model/Address.h"
 
 using namespace std;

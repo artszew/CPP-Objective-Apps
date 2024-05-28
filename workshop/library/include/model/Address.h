@@ -1,3 +1,7 @@
+/**
+ * @file Address.h
+ * @brief Plik zawierający deklarację klasy Address, która reprezentuje adres klienta.
+ */
 #ifndef ADDRESS_H
 #define ADDRESS_H
 #include <string>

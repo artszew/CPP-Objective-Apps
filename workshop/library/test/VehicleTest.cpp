@@ -1,3 +1,7 @@
+/**
+ * @file VehicleTest.cpp
+ * @brief Plik zawierający testy jednostkowe dla klasy Vehicle.
+ */
 #include <boost/test/unit_test.hpp>
 #include "../../library/include/model/Vehicle.h"
 

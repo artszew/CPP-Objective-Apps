@@ -1,3 +1,7 @@
+/**
+ * @file AddressTest.cpp
+ * @brief Plik zawierający testy jednostkowe dla klasy Address.
+ */
 #include <boost/test/unit_test.hpp>
 #include "../../library/include/model/Address.h"
 

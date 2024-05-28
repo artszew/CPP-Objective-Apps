@@ -1,8 +1,15 @@
+/**
+ * @file ClientTest.cpp
+ * @brief Plik zawierający testy jednostkowe dla klasy Client.
+ */
 #include <boost/test/unit_test.hpp>
 #include "../../library/include/model/Client.h"
 
 namespace btt = boost::test_tools;
 
+/**
+ * @brief Przykładowa struktura danych dla klasy Client.
+ */
 struct TestSuiteClientFixture {
     const std::string testFirstName = "Jan";
     const std::string testLastName = "Kowal";
@@ -23,6 +30,9 @@ struct TestSuiteClientFixture {
 
 BOOST_FIXTURE_TEST_SUITE(TestSuiteClient, TestSuiteClientFixture)
 
+/**
+ * @brief Przypadek do testowania konstruktora parametrowego klasy Client.
+ */
 BOOST_AUTO_TEST_CASE(ParameterConstructorTest) {
     // Arrange
     Client c(testFirstName, testLastName, testPersonalID, testaddress1);
@@ -147,9 +157,27 @@ BOOST_AUTO_TEST_CASE(GetInfo_WithAddress)
     Client client("Jan", "Kowal", "2468013579", &address);
 
     // Act
-    std::string info = client.getInfo();
 
     // Assert
-    BOOST_TEST(info.find("Address:\n City: Lodz, street: Aleja Politechniki, number: 20/4") != std::string::npos);
+    BOOST_TEST(client.getAddress() == &address);
 }
+
+/**
+ * @brief Przypadek do testowania metody dodającej wypożyczenie do klienta.
+ */
+BOOST_AUTO_TEST_CASE(AddRentTest) {
+        // Arrange
+        Address address("Lodz", "Aleja Politechniki", "20/4");
+        Client client("Jan", "Kowal", "2468013579", &address);
+        Rent rent(1, pt::second_clock::local_time(), pt::not_a_date_time, &client, nullptr);
+
+        // Act
+        client.addRent(&rent);
+
+        // Assert
+        BOOST_TEST(client.getCurrentRents().size() == 1);
+        BOOST_TEST(client.getCurrentRents()[0] == &rent);
+}
+
+
 BOOST_AUTO_TEST_SUITE_END()

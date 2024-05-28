@@ -8,9 +8,7 @@ using namespace std;
 
 //Klasa klient z polami imie, nazwisko, numer pesel
 
-Client::Client(const string& firstName, const string& lastName, const string& personalID, Address* address) : firstName(firstName), lastName(lastName), personalID(personalID),  address(address) //lista inicjalizacyjna
-
-{}
+Client::Client(const string& firstName, const string& lastName, const string& personalID, Address* address) : firstName(firstName), lastName(lastName), personalID(personalID),  address(address) {}//lista inicjalizacyjna
 
 // Metody dostępowe
     
@@ -111,4 +109,20 @@ Address* Client::getAddress() const {
     return address;
 }
 
+std::vector<Rent*> Client::getCurrentRents() const {
+    return currentRents;
+}
+
+void Client::addRent(Rent* rent) {
+    currentRents.push_back(rent);
+}
+
+void Client::addCurrentRent(Rent* rent) {
+    currentRents.push_back(rent);
+}
+
+void Client::removeCurrentRent(Rent* rent) {
+    auto it = std::remove(currentRents.begin(), currentRents.end(), rent);
+    currentRents.erase(it, currentRents.end());
+}
 Client::~Client() {}
