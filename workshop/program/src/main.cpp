@@ -1,56 +1,43 @@
 //Introduction project.
 
-
-
 #include <iostream>
-
-#include "../../library/include/model/Client.h"
+//headers:
 #include "../../library/include/model/Address.h"
+#include "../../library/include/model/Bicycle.h"
+#include "../../library/include/model/Car.h"
+#include "../../library/include/model/Client.h"
+#include "../../library/include/model/ClientType.h"
+#include "../../library/include/model/Moped.h"
+#include "../../library/include/model/MotorVehicle.h"
+#include "../../library/include/model/Rent.h"
 #include "../../library/include/model/Vehicle.h"
-#include "../../library/src/model/Client.cpp"
-#include "../../library/src/model/Address.cpp"
-#include "../../library/src/model/Vehicle.cpp"
-
-using namespace std;
-
+#include "../../library/include/StorageContainer.h"
+#include "../../library/include/typedefs.h"
 
 
 int main()
-
 {
+    pt::ptime now = boost::posix_time::second_clock::local_time();
 
-    // Tworzenie obiektu adresu
-    Address address_1("Lodz", "Aleja Politechniki", "20/4");
-    cout << endl << address_1.getInfo() << endl;
+    StorageContainer storage;
+    storage.initializeTestData();
 
-    // Tworzenie obiektu pierwszego klienta
-    Client client_1 ("Artur", "Szewczykowski", "0123456789", &address_1); // Obiekt tworzony na stosie (stack)
-    Client &ref_c1 = client_1; // Referencja do obiektu
-    cout << endl << ref_c1.getInfo() << endl;
+    std::cout << storage.getClientRepository().report() << std::endl;
+    std::cout << storage.getVehicleRepository().report() << std::endl;
+    std::cout << storage.getRentRepository().report() << std::endl;
 
-    // Obiekt drugiego klienta
-    Client *client_2Ptr = new Client("Jan","Kowalski","0987654321", &address_1); // Obiekt tworzony na stercie (heap)
-    cout << endl <<client_2Ptr->getInfo() << endl; // Dla wskaźnika używamy -> zamiast '.'
-    cout << "Adres pamięci wskaźnika na Client2: " << client_2Ptr << endl << endl;
+    ClientPtr client = storage.getClientRepository().get(0);
+    VehiclePtr vehicle = storage.getVehicleRepository().get(0);
+    RentPtr newRent = std::make_shared<Rent>(2, now, now + boost::posix_time::hours(24), client, vehicle);
+    storage.getRentRepository().add(newRent);
 
-    // Tworzenie obiektu pierwszego pojazdu
-    Vehicle vehicle_1 ("EL 21B15", 10); // Obiekt tworzony na stosie (stack)
-    Vehicle &ref_v1 = vehicle_1; // Referencja do obiektu
-    cout << endl << ref_v1.getInfo() << endl;
+    // Dodaj ręcznie wypożyczenie do listy bieżących wypożyczeń klienta
+    client->addRent(newRent);
 
-    // Próba zmiany wartości parametru FirstName obiektu Client1
-    cout << "Próba zmiany wartości parametru FirstName obiektu Client1:\n";
-    ref_c1.setFirstName("");
-    cout << "Aktualne imię klienta: " << ref_c1.getFirstName() << endl;
-    cout << "Czy widzisz poprzednią wartość parametru - 'Artur'? Jeżeli tak, to nie udało się zmienić wartości na pustą.\n\n";
-
-
-
-    // Zwolnienie zaalokowanej pamięci dla obiektu drugiego klienta
-    delete client_2Ptr;
-
-
+    std::cout << storage.getClientRepository().report() << std::endl;
+    std::cout << storage.getVehicleRepository().report() << std::endl;
+    std::cout << storage.getRentRepository().report() << std::endl;
 
     return 0;
-
 }
+

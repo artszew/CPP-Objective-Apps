@@ -1,14 +1,15 @@
+/**
+ * @file Client.cpp
+ * @brief Plik zawierający definicje metod klasy Client, która reprezentuje Klienta.
+ */
 #include <iostream>
-
 #include "../../library/include/model/Client.h"
-
-using namespace std;
-
+#include "../../library/include/typedefs.h"
 
 
 //Klasa klient z polami imie, nazwisko, numer pesel
 
-Client::Client(const string& firstName, const string& lastName, const string& personalID, Address* address) : firstName(firstName), lastName(lastName), personalID(personalID),  address(address) {}//lista inicjalizacyjna
+Client::Client(const std::string& firstName, const std::string& lastName, const std::string& personalID, std::shared_ptr<Address> address, std::shared_ptr<ClientType> clientType) : firstName(firstName), lastName(lastName), personalID(personalID), address(address), clientType(clientType) {}//lista inicjalizacyjna
 
 // Metody dostępowe
     
@@ -17,10 +18,10 @@ Client::Client(const string& firstName, const string& lastName, const string& pe
      *
      * @param firstName lastName personalID Imię klienta Naziwsko klienta Numer personalny.
      */
-string Client::getInfo() const{
-    string fullInfo = "Client:\n First name: " + firstName + ", last name: " + lastName + ", personal ID: " + personalID;
+std::string Client::getInfo() const{
+    std::string fullInfo = "Client:\n First name: " + firstName + ", last name: " + lastName + ", personal ID: " + personalID;
     if (address != nullptr) {
-        fullInfo += "Address: " + address->getInfo();
+        fullInfo += address->getInfo();
     }
     if (!currentRents.empty()) {
         fullInfo += "\nCurrent rentals:\n";
@@ -30,6 +31,8 @@ string Client::getInfo() const{
     } else {
         fullInfo += "\nNo current rentals.";
     }
+    fullInfo += "\nClient type: " + clientType->getInfo();
+    return fullInfo;
 }
 
     /**
@@ -37,7 +40,7 @@ string Client::getInfo() const{
      *
      * @param firstName Imię klienta.
      */
-const string& Client::getFirstName() const {
+const std::string& Client::getFirstName() const {
     return firstName;
 
 }
@@ -49,7 +52,7 @@ const string& Client::getFirstName() const {
      *
      * @param newFirstName Nowe imię klienta.
      */
-void Client::setFirstName(const string& newFirstName) {
+void Client::setFirstName(const std::string& newFirstName) {
     if (!newFirstName.empty()) { // Sprawdzenie, czy nowy napis nie jest pusty
         firstName = newFirstName;
     }
@@ -60,7 +63,7 @@ void Client::setFirstName(const string& newFirstName) {
      *
      * @param lastName Nazwisko klienta.
      */
-const string& Client::getLastName() const {
+const std::string& Client::getLastName() const {
     return lastName;
 }
 
@@ -71,7 +74,7 @@ const string& Client::getLastName() const {
      *
      * @param newLastName Nowe nazwisko klienta.
      */
-void Client::setLastName(const string& newLastName) {
+void Client::setLastName(const std::string& newLastName) {
     if (!newLastName.empty()) { // Sprawdzenie, czy nowy napis nie jest pusty
         lastName = newLastName;
     }
@@ -82,7 +85,7 @@ void Client::setLastName(const string& newLastName) {
      *
      * @param personalID numer personalny klienta.
      */
-const string& Client::getPersonalID() const {
+const std::string& Client::getPersonalID() const {
     return personalID;
 
 }
@@ -94,35 +97,51 @@ const string& Client::getPersonalID() const {
      *
      * @param newAddress Nowy adres klienta.
      */
-void Client::setAddress(Address* newAddress) {
+void Client::setAddress(std::shared_ptr<Address> newAddress) {
     if (newAddress != nullptr) {
         address = newAddress;
     }
 }
+
 
     /**
      * @brief Pobiera numer adres klienta.
      *
      * @param address Adres klienta.
      */
-Address* Client::getAddress() const {
+std::shared_ptr<Address> Client::getAddress() const {
     return address;
 }
 
-std::vector<Rent*> Client::getCurrentRents() const {
+std::vector<std::shared_ptr<Rent>> Client::getCurrentRents() const {
     return currentRents;
 }
 
-void Client::addRent(Rent* rent) {
+void Client::addRent(const std::shared_ptr<Rent>& rent) {
     currentRents.push_back(rent);
 }
 
-void Client::addCurrentRent(Rent* rent) {
+void Client::addCurrentRent(const std::shared_ptr<Rent>& rent) {
     currentRents.push_back(rent);
 }
 
-void Client::removeCurrentRent(Rent* rent) {
+void Client::removeCurrentRent(const std::shared_ptr<Rent>& rent) {
     auto it = std::remove(currentRents.begin(), currentRents.end(), rent);
     currentRents.erase(it, currentRents.end());
 }
-Client::~Client() {}
+
+int Client::getMaxVehicles() const {
+    return clientType->getMaxVehicles();
+}
+
+double Client::applyDiscount(double price) const {
+    return clientType->applyDiscount(price);
+}
+
+void Client::setClientType(std::shared_ptr<ClientType> newClientType) {
+    if (newClientType != nullptr) {
+        clientType = newClientType;
+    }
+}
+
+Client::~Client(){}

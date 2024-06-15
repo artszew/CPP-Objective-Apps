@@ -19,7 +19,7 @@ Address::Address(const string& city, const string& street, const string& number)
      * @param city street number Miasto Ulica Numer domu.
      */
 string Address::getInfo() const{
-    return "Address:\n City: " + city + ", street: " + street + ", number: " + number;
+    return " Address:\n City: " + city + ", street: " + street + ", number: " + number;
 }
 
     /**

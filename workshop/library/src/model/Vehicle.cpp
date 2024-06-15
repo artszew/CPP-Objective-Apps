@@ -4,6 +4,7 @@
  */
 #include <iostream>
 #include "../../library/include/model/Vehicle.h"
+#include "../../library/include/typedefs.h"
 
 using namespace std;
 
@@ -82,7 +83,9 @@ void Vehicle::setBasePrice(unsigned int& basePrice) {
     bool Vehicle::isRented() const {
         return rented;
     }
-    
+    double Vehicle::getActualRentalPrice() const {
+    return static_cast<double>(basePrice);
+    }
 // destruktor klasy Vehicle
 Vehicle::~Vehicle() {}
 

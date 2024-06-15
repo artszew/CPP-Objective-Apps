@@ -8,6 +8,7 @@
 #include <boost/date_time/posix_time/posix_time.hpp>
 #include <boost/date_time/gregorian/gregorian.hpp>
 #include <string>
+#include <memory>
 
 namespace pt = boost::posix_time;
 namespace gr = boost::gregorian;
@@ -19,14 +20,7 @@ class Vehicle;
  * @class Rent
  * @brief Klasa reprezentująca wypożyczenie pojazdu.
  */
-class Rent {
-private:
-    unsigned int id; /**< Identyfikator wypożyczenia */
-    pt::ptime beginTime; /**< Czas rozpoczęcia wypożyczenia */
-    pt::ptime endTime; /**< Czas zakończenia wypożyczenia */
-    int rentCost; /**< Koszt wypożyczenia */
-    Client* client; /**< Wskaźnik na klienta */
-    Vehicle* vehicle; /**< Wskaźnik na pojazd */
+class Rent : public std::enable_shared_from_this<Rent> {
 
 public:
     /**
@@ -37,7 +31,7 @@ public:
      * @param client Wskaźnik na klienta.
      * @param vehicle Wskaźnik na pojazd.
      */
-    Rent(unsigned int id, const pt::ptime& beginTime, const pt::ptime& endTime, Client* client, Vehicle* vehicle);
+    Rent(unsigned int id, const pt::ptime& beginTime, const pt::ptime& endTime, std::weak_ptr<Client> client, std::shared_ptr<Vehicle> vehicle);
 
     /**
      * @brief Zwraca informacje o wypożyczeniu.
@@ -73,14 +67,21 @@ public:
      * @brief Zwraca wskaźnik na klienta.
      * @return Wskaźnik na klienta.
      */
-    const Client* getClient() const;
+    std::weak_ptr<Client> getClient() const;
 
     /**
      * @brief Zwraca wskaźnik na pojazd.
      * @return Wskaźnik na pojazd.
      */
-    const Vehicle* getVehicle() const;
-};
+    std::shared_ptr<Vehicle> getVehicle() const;
 
+private:
+    unsigned int id; /**< Identyfikator wypożyczenia */
+    pt::ptime beginTime; /**< Czas rozpoczęcia wypożyczenia */
+    pt::ptime endTime; /**< Czas zakończenia wypożyczenia */
+    int rentCost; /**< Koszt wypożyczenia */
+    std::weak_ptr<Client> client; /**< Wskaźnik na klienta */
+     std::shared_ptr<Vehicle> vehicle; /**< Wskaźnik na pojazd */
+};
 #endif // RENT_H
 

@@ -5,18 +5,15 @@
 #ifndef VEHICLE_H
 #define VEHICLE_H
 
+#include <memory>
 #include <string>
-
+#include <vector>
 /**
  * @brief Klasa reprezentująca pojazd.
  *
  * Klasa ta zawiera informacje o pojeździe, takie jak numer rejestracyjny i cena za 1 dobę wypożyczenia.
  */
-class Vehicle {
-private:
-    std::string plateNumber; /**< Numer rejestracyjny */
-    unsigned int basePrice; /**< Cena za 1 dobę wypożyczenia */
-    bool rented; /**< Flaga określająca, czy pojazd jest aktualnie wypożyczony */
+class Vehicle : public std::enable_shared_from_this<Vehicle> {
 
 public:
     /**
@@ -83,7 +80,13 @@ public:
      * @return Wartość logiczna określająca, czy pojazd jest aktualnie wypożyczony.
      */
     bool isRented() const;
-};
+    virtual double getActualRentalPrice() const;
 
+
+private:
+    std::string plateNumber; /**< Numer rejestracyjny */
+    unsigned int basePrice; /**< Cena za 1 dobę wypożyczenia */
+    bool rented; /**< Flaga określająca, czy pojazd jest aktualnie wypożyczony */
+    };
 #endif
 
