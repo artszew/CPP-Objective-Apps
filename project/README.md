@@ -1,4 +1,4 @@
-Struktura aplikacji:
+1. Struktura aplikacji:
 
           |- project
                |
@@ -49,7 +49,8 @@ Struktura aplikacji:
                |
                |- CMakeLists.txt
                
-Wytyczne do implementacji:
+
+2. Wytyczne do implementacji:
 - [x] Diagram UML zgodny z implementacją 
 - [x] Prawidłowa struktura projektu (rozdzielenie plików źródłowych od nagłówkowych, podkatalogi z podziałem kodu ze względu na przeznaczenie)
 - [x] Prawidłowe zarządzanie pamięcią i innymi zasobami (właściwe ich zdobywanie i zwalnianie - smartpointery)
