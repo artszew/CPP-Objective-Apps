@@ -1,4 +1,55 @@
+Struktura aplikacji:
 
+          |- project
+               |
+               |- library
+               |    |- include
+               |    |    |- model
+               |    |        |- Client.h
+               |    |        |- ClientType.h
+               |    |        |- Lesson.h
+               |    |        |- Individual.h
+               |    |        |- GroupCourse.h
+               |    |        |- Teacher.h
+               |    |    |- repositories
+               |    |        |- ClientRepository.h
+               |    |        |- LessonRepository.h
+               |    |        |- TeacherRepository.h
+               |    |    |- RepositoriesManager.h
+               |    |	 |- typedefs.h
+               |    |- src
+               |    |    |- model
+               |    |        |- Client.cpp
+               |    |        |- ClientType.cpp
+               |    |        |- Lesson.cpp
+               |    |        |- Individual.cpp
+               |    |        |- GroupCourse.cpp
+               |    |        |- Teacher.cpp
+               |    |    |- repositories
+               |    |        |- ClientRepository.cpp
+               |    |        |- LessonRepository.cpp
+               |    |        |- TeacherRepository.cpp
+               |    |    |- RepositoriesManager.cpp
+               |    |- test
+               |    |    |- master.cpp
+               |    |    |- AddressTest.cpp
+               |    |    |- ClientTest.cpp
+               |    |    |- RentTest.cpp
+               |    |    |- RepositoryTest.cpp
+               |    |    |- VehicleTest.cpp
+               |    |
+               |    |- CMakeLists.txt
+               |
+               |- program
+               |    |- include
+               |    |- src
+               |    |    |- main.cpp
+               |    |
+               |    |- CMakeLists.txt
+               |
+               |- CMakeLists.txt
+               
+Wytyczne do implementacji:
 - [x] Diagram UML zgodny z implementacją 
 - [x] Prawidłowa struktura projektu (rozdzielenie plików źródłowych od nagłówkowych, podkatalogi z podziałem kodu ze względu na przeznaczenie)
 - [x] Prawidłowe zarządzanie pamięcią i innymi zasobami (właściwe ich zdobywanie i zwalnianie - smartpointery)
