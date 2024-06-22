@@ -1,6 +1,6 @@
-Aplikacja działająca na zasadzie wypożyczalni samochodów.
+Workshop - aplikacja działająca na zasadzie wypożyczalni samochodów.
 
-Na podstawie warsztatów powstanie autorska aplikacja działająca jako serwis umawania korepetycji.
+Project - autorki program aplikacja działający jako serwis umawania korepetycji, bazujacy na aplikacji warsztatowej, jednak rozszerzony o kilka funkcjonalnosci.
 
 Ogólne zasady programowania, które ma spełniać kod aplikacji:
 - SRP (Single Responsibility Principle) - zasada pojedynczej odpowiedzialności.
