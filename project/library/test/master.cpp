@@ -7,11 +7,11 @@ using namespace boost::unit_test;
 struct TestConfig {
 
     TestConfig() {
-        //      unit_test_log.set_format( output_format.XML ); 
-        //      unit_test_log.set_threshold_level( log_level::all );
-        //      expected_failures(2);
-        //      timeout(1);
-        //      tolerance(0.0001);
+           //  unit_test_log.set_format( output_format.XML ); 
+           //  unit_test_log.set_threshold_level( log_level::all );
+           //  expected_failures(2);
+            // timeout(1);
+            // tolerance(0.0001);
     }
 
     ~TestConfig() {

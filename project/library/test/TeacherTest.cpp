@@ -12,7 +12,7 @@
 namespace pt = boost::posix_time;
 namespace btt = boost::test_tools;
 
-BOOST_AUTO_TEST_SUITE(TestTeacherSetters)
+BOOST_AUTO_TEST_SUITE(TestTeacherConstructorAndSetters)
 
 /**
  * @brief Przypadek do testowania konstruktora parametrowego klasy Teacher.
@@ -26,9 +26,6 @@ BOOST_AUTO_TEST_CASE(TeacherConstructorTest)
     BOOST_TEST(60 == teacher.getBasePrice());
     BOOST_TEST(1 == teacher.getTeacherID());
 }
-BOOST_AUTO_TEST_SUITE_END()
-
-BOOST_AUTO_TEST_SUITE(TestTeacherSetters)
 /**
  * @brief Przypadek do testowania metody set dla numeru rejestracyjnego.
  */
@@ -69,7 +66,7 @@ BOOST_AUTO_TEST_CASE(SetBasePrice_GoodValue)
     Teacher teacher("Artur", 60, 1);
 
     // Act
-    unsigned int newBasePrice = 80;
+    int newBasePrice = 80;
     teacher.setBasePrice(newBasePrice);
 
     // Assert
@@ -82,7 +79,7 @@ BOOST_AUTO_TEST_CASE(SetBasePrice_BadValue)
     Teacher teacher("Artur", 60, 1);
 
     // Act
-    unsigned int newBasePrice = -60;
+    int newBasePrice = -60;
     teacher.setBasePrice(newBasePrice);
 
     // Assert

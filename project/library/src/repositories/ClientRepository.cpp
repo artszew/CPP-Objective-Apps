@@ -1,7 +1,9 @@
-// src/repositories/ClientRepository.cpp
+/**
+ * @file ClientRepository.cpp
+ * @brief Plik zawierający implementacje metod klasy ClientRepository, która stanowi repozytorium klientów.
+ */
 #include "../../include/repositories/ClientRepository.h"
 #include "../../include/model/Client.h"
-#include <algorithm>
 
 /**
  * @brief Zwraca wskaźnik na obiekt klienta o zadanym indeksie.
@@ -55,8 +57,13 @@ size_t ClientRepository::size() const {
     return clients.size();
 }
 
-
-std::vector<ClientPtr> ClientRepository::findBy(ClientPredicate predicate) const {
+     /**
+     * @brief Znajduje klientów spełniających określony warunek.
+     * 
+     * @param predicate Predykat określający warunek do spełnienia.
+     * @return Wektor wskaźników do klientów spełniających warunek.
+     */
+    std::vector<ClientPtr> ClientRepository::findBy(ClientPredicate predicate) const {
     std::vector<ClientPtr> found;
     for (const auto &client : clients) {
         if (client != nullptr && predicate(client)) {
@@ -65,7 +72,12 @@ std::vector<ClientPtr> ClientRepository::findBy(ClientPredicate predicate) const
     }
     return found;
 }
-
-std::vector<ClientPtr> ClientRepository::findAll() const {
+    
+    /**
+     * @brief Pobiera wszystkich klientów z repozytorium.
+     * 
+     * @return Wektor wskaźników do wszystkich klientów.
+     */ 
+    std::vector<ClientPtr> ClientRepository::findAll() const {
     return clients;
 }

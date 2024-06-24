@@ -1,3 +1,15 @@
+/**
+ * @file Lesson.cpp
+ * @brief Plik zawierający implementacje metod klasy Lesson, która stanowi klasę bazową dla GroupCourse i Individual.
+ */
+ 
+  /**
+ * @brief Headery klas, których metody są wykorzystywane w klasie Lesson
+ * @path_to Lesson.h
+ * @path_to Client.h
+ * @path_to Teacher.h
+ * @path_to posix_time.hpp Zewnętrzna biblioteka związana z określaniem czasu
+ */
 #include "../include/model/Lesson.h"
 #include "../include/model/Client.h"
 #include "../include/model/Teacher.h"
@@ -26,11 +38,11 @@ Lesson::Lesson(const int lessonID, const pt::ptime& beginDateAndTime, float dura
 std::string Lesson::getInfo() const {
     std::string info = "Lesson ID: " + std::to_string(lessonID) + "\n";
     if (client && teacher) {
-        info += "Begin time: " + boost::posix_time::to_simple_string(beginDateAndTime) + "\n";
-        info += "Duration: " + std::to_string(duration) + " minutes\n";
-        info += "Subject: " + subject + "\n";
-        info += "Client: " + client->getFirstName() + "\n";
-        info += "Teacher name: " + teacher->getFirstName();   }
+        info += "Begin time: " + boost::posix_time::to_simple_string(beginDateAndTime);
+        info += ", duration: " + std::to_string(duration) + " hours";
+        info += ", subject: " + subject;
+        info += ", client: " + client->getFirstName();
+        info += ", teacher: " + teacher->getFirstName();   }
     return info;
 }
 
@@ -58,6 +70,7 @@ void Lesson::setDuration(float newDuration) {
     if (newDuration >= 0.5) {
     duration = newDuration;
     }
+    
 }
 
 /**
@@ -74,10 +87,9 @@ const std::string& Lesson::getSubject() const {
  */
 void Lesson::setSubject(const std::string& newSubject) {
     if (!newSubject.empty()){
-    subject = newSubject;
-    }
+    subject = newSubject;}
 }
-
+    
 /**
  * @brief Zwraca wskaźnik na klienta.
  * @return Wskaźnik na klienta.
@@ -104,6 +116,14 @@ void Lesson::setBeginDateAndTime(const pt::ptime& newBeginDateAndTime) {
     }
 }
 
+/**
+ * @brief Zwraca datę i czas rozpoczęcia lekcji.
+ * @return Datę i czas rozpoczęcia lekcji.
+ */
 pt::ptime Lesson::getBeginDateAndTime() const {
     return beginDateAndTime;
 }
+/**
+ * @brief Destruktor klasy lekcja.
+ */
+Lesson::~Lesson() {} 

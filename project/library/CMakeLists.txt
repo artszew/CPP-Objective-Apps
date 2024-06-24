@@ -25,7 +25,7 @@ set(SOURCE_FILES
     src/repositories/TeacherRepository.cpp
     src/repositories/LessonRepository.cpp
     src/RepositoriesManager.cpp
-   )
+)
 
 # Utwórz bibliotekę typu STATIC, SHARED albo MODULE ze wskazanych źródeł
 add_library(Library ${SOURCE_FILES})
@@ -35,8 +35,8 @@ target_include_directories(Library PUBLIC include)
 # Ustawienie flagi enable_testing() w podprojekcie biblioteki
 enable_testing()
 
-# Znalezienie i dołączenie biblioteki Boost
-find_package (Boost 1.60.0 COMPONENTS "unit_test_framework" REQUIRED)
+# Znalezienie i dołączenie biblioteki Boost - unit test i date time
+find_package (Boost 1.60.0 COMPONENTS "unit_test_framework" "date_time" REQUIRED)
 
 # Dodanie katalogu include do ścieżek dołączanych
 include_directories(

@@ -1,42 +1,40 @@
 /**
  * @file ClientType.cpp
- * @brief Plik zawierający definicje metod klasy ClientType, która reprezentuje typ Klienta.
+ * @brief Plik zawierający implementacje metod klasy ClientType, która reprezentuje typ Klienta.
+ */
+ 
+ /**
+ * @brief Headery klas, których metody są wykorzystywane w klasie ClientType
+ * @path_to ClientType.h 
+ * @path_to Client.h
  */
 #include "../../library/include/model/ClientType.h"
-
-// PrimarySchool
+#include "../../library/include/model/Client.h"
 
 /**
  * @brief Oblicza zniżkę dla klienta typu "PrimarySchool".
  * @param price Cena, dla której obliczana jest zniżka.
- * @param schoolClass Klasa klienta.
- * @return Cena po zastosowaniu zniżki.
+ * @return Cena po zastosowaniu zniżki 25% dla uczniów szkoły podstawowej.
  */
 float PrimarySchool::applyDiscount(float price) const {
-    return price * 0.75; // Rabat 25% dla uczniów szkoły podstawowej
+    return price * 0.75;
 }
 
 /**
  * @brief Pobiera informacje o typie klienta.
- * @return Informacje o typie klienta.
+ * @return Informacja o typie klienta.
  */
 std::string PrimarySchool::getInfo() const {
     return "Primary School";
 }
 
-// SecondarySchool
-
 /**
  * @brief Oblicza zniżkę dla klienta typu "SecondarySchool".
  * @param price Cena, dla której obliczana jest zniżka.
- * @return Cena po zastosowaniu zniżki.
+ * @return Cena po zastosowaniu zniżki (w tym przypadku nie ma żadnych rabatów ani podwyżek).
  */
 float SecondarySchool::applyDiscount(float price) const {
-    if (isExtensionLevel()) {
-        return price * 1.25; // poziom rozszerzony droższy
-    } else {
-        return price;
-    }
+        return price; 
 }
 
 /**
@@ -48,22 +46,12 @@ std::string SecondarySchool::getInfo() const {
 }
 
 /**
- * @brief Sprawdza, czy klient jest na poziomie rozszerzonym.
- * @return true, jeśli klient jest na poziomie rozszerzonym, w przeciwnym razie false.
- */
-bool SecondarySchool::isExtensionLevel() const {
-    return extensionLevel;
-}
-
-// Student
-
-/**
- * @brief Oblicza zniżkę dla klienta typu "Student".
- * @param price Cena, dla której obliczana jest zniżka.
- * @return Cena po zastosowaniu zniżki.
+ * @brief Oblicza podwyżkę dla klienta typu "Student".
+ * @param price Cena, dla której obliczana jest podwyżka.
+ * @return Cena po zastosowaniu podwyżki.
  */
 float Student::applyDiscount(float price) const {
-    return price * 1.5; // nauka wyższa najdroższa
+    return price * 1.5;
 }
 
 /**
@@ -73,4 +61,3 @@ float Student::applyDiscount(float price) const {
 std::string Student::getInfo() const {
     return "Student";
 }
-

@@ -1,8 +1,14 @@
+/**
+ * @file Lesson.h
+ * @brief Plik nagłówkowy zawierający definicje klasy Lesson, która reprezentuje zajęcia */
 #ifndef LESSON_H
 #define LESSON_H
-
+ 
+ /**
+ * @brief Headery klas, których metody są wykorzystywane w klasie Lesson
+ * @path_to posix_time.hpp Zewnętrzna biblioteka związana z określaniem czasu
+ */
 #include <boost/date_time/posix_time/posix_time.hpp>
-#include <boost/date_time/gregorian/gregorian.hpp>
 #include <string>
 #include <memory>
 
@@ -94,6 +100,11 @@ public:
      * @param newSubject Nowy przedmiot lekcji.
      */
     void setSubject(const std::string& newSubject);
+    
+    /**
+    * @brief Wirtualny destruktor klasy lesson.
+    */
+    virtual ~Lesson();
 
 private:
     const int lessonID; /**< Identyfikator lekcji */
@@ -105,4 +116,5 @@ private:
 };
 
 #endif // LESSON_H
+
 

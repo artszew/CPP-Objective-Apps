@@ -1,4 +1,7 @@
-// src/repositories/TeacherRepository.cpp
+/**
+ * @file TeacherRepository.cpp
+ * @brief Plik zawierający implementacje metod klasy TeacherRepository, która stanowi repozytorium nauczycieli.
+ */
 #include "../../include/repositories/TeacherRepository.h"
 #include "../../include/model/Teacher.h"
 #include <algorithm>
@@ -55,6 +58,12 @@ size_t TeacherRepository::size() const {
     return teachers.size();
 }
 
+    /**
+     * @brief Znajduje nauczycieli spełniających określony warunek.
+     * 
+     * @param predicate Predykat określający warunek do spełnienia.
+     * @return Wektor wskaźników do nauczycieli spełniających warunek.
+     */  
 std::vector<TeacherPtr> TeacherRepository::findBy(TeacherPredicate predicate) const {
     std::vector<TeacherPtr> found;
     for (const auto &teacher : teachers) {
@@ -65,7 +74,11 @@ std::vector<TeacherPtr> TeacherRepository::findBy(TeacherPredicate predicate) co
     return found;
 }
 
+    /**
+     * @brief Pobiera wszystkich nauczycieli z repozytorium.
+     * 
+     * @return Wektor wskaźników do wszystkich nauczycieli.
+     */ 
 std::vector<TeacherPtr> TeacherRepository::findAll() const {
     return teachers;
 }
-

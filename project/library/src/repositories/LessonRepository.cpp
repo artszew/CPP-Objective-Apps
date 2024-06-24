@@ -1,4 +1,7 @@
-// src/repositories/LessonRepository.cpp
+/**
+ * @file LessonRepository.cpp
+ * @brief Plik zawierający implementacje metod klasy LessonRepository, która stanowi repozytorium zajęć.
+ */
 #include "../../include/repositories/LessonRepository.h"
 #include "../../include/model/Lesson.h"
 #include <algorithm>
@@ -55,7 +58,12 @@ size_t LessonRepository::size() const {
     return lessons.size();
 }
 
-
+     /**
+     * @brief Znajduje zajęcia spełniające określony warunek.
+     * 
+     * @param predicate Predykat określający warunek do spełnienia.
+     * @return Wektor wskaźników do zajęć spełniających warunek.
+     */ 
 std::vector<LessonPtr> LessonRepository::findBy(LessonPredicate predicate) const {
     std::vector<LessonPtr> found;
     for (const auto &lesson : lessons) {
@@ -66,6 +74,11 @@ std::vector<LessonPtr> LessonRepository::findBy(LessonPredicate predicate) const
     return found;
 }
 
+     /**
+     * @brief Pobiera wszystkich zajęć z repozytorium.
+     * 
+     * @return Wektor wskaźników do wszystkich zajęć.
+     */
 std::vector<LessonPtr> LessonRepository::findAll() const {
     return lessons;
 }

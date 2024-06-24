@@ -60,12 +60,12 @@ BOOST_AUTO_TEST_CASE(LessonRepositoryTest) {
     auto newLesson = std::make_shared<Lesson>(1, now, 1, "Math", client, teacher);
     manager.getLessonRepository().add(newLesson);
 
-    // Sprawdzenie wielkości repozytorium po dodaniu wypożyczenia
+    // Sprawdzenie wielkości repozytorium po dodaniu lekcji
     BOOST_CHECK_EQUAL(manager.getLessonRepository().size(), 2);
 
     // Usunięcie wypożyczenia
     manager.getLessonRepository().remove(newLesson);
-    // Sprawdzenie wielkości repozytorium po usunięciu wypożyczenia
+    // Sprawdzenie wielkości repozytorium po usunięciu lekcji
     BOOST_CHECK_EQUAL(manager.getLessonRepository().size(), 1);
 }
 
@@ -83,12 +83,12 @@ BOOST_AUTO_TEST_CASE(RemoveNonExistentClientTest) {
 }
 
 /**
- * @brief Test sprawdzający poprawność obsługi usuwania nieistniejącego pojazdu.
+ * @brief Test sprawdzający poprawność obsługi usuwania nieistniejącego nauczyciela.
  */
 BOOST_AUTO_TEST_CASE(RemoveNonexistentTeacherTest) {
     RepositoriesManager manager;
 
-    // Próba usunięcia nieistniejącego pojazdu
+    // Próba usunięcia nieistniejącego nauczyciela
     manager.getTeacherRepository().remove(nullptr);
 
     // Sprawdzenie, czy wielkość repozytorium pozostała bez zmian
@@ -96,12 +96,12 @@ BOOST_AUTO_TEST_CASE(RemoveNonexistentTeacherTest) {
 }
 
 /**
- * @brief Test sprawdzający poprawność obsługi usuwania nieistniejącego wypożyczenia.
+ * @brief Test sprawdzający poprawność obsługi usuwania nieistniejących zajec.
  */
 BOOST_AUTO_TEST_CASE(RemoveNonexistentLessonTest) {
     RepositoriesManager manager;
 
-    // Próba usunięcia nieistniejącego wypożyczenia
+    // Próba usunięcia nieistniejących zajec
     manager.getLessonRepository().remove(nullptr);
 
     // Sprawdzenie, czy wielkość repozytorium pozostała bez zmian
@@ -122,7 +122,7 @@ BOOST_AUTO_TEST_CASE(AddNullClientTest) {
 }
 
 /**
- * @brief Test sprawdzający poprawność obsługi dodawania pustego wskaźnika pojazdu.
+ * @brief Test sprawdzający poprawność obsługi dodawania pustego wskaźnika nauczyciela.
  */
 BOOST_AUTO_TEST_CASE(AddNullTeacherTest) {
     RepositoriesManager manager;
@@ -135,7 +135,7 @@ BOOST_AUTO_TEST_CASE(AddNullTeacherTest) {
 }
 
 /**
- * @brief Test sprawdzający poprawność obsługi dodawania pustego wskaźnika wypożyczenia.
+ * @brief Test sprawdzający poprawność obsługi dodawania pustego wskaźnika do zajec.
  */
 BOOST_AUTO_TEST_CASE(AddNullLessonTest) {
     RepositoriesManager manager;
@@ -173,14 +173,14 @@ BOOST_AUTO_TEST_CASE(FindByClientTest) {
     BOOST_CHECK_EQUAL(foundClients.size(), 1); // Zakładając, że jest tylko 1 klient o nazwisku "Kowal"
 }
 
-// Test dla metody findBy w repozytorium pojazdów
+// Test dla metody findBy w repozytorium nauczycieli
 BOOST_AUTO_TEST_CASE(FindByTeacherTest) {
     RepositoriesManager manager;
 
     // Wywołanie metody findBy z wybranym predykatem
     std::vector<TeacherPtr> foundTeachers = manager.getTeacherRepository().findBy(teacherHasFirstNameArtur);
 
-    // Sprawdzenie, czy liczba znalezionych pojazdów jest poprawna
+    // Sprawdzenie, czy liczba znalezionych nauczycieli jest poprawna
     BOOST_CHECK_EQUAL(foundTeachers.size(), 1); 
 }
 

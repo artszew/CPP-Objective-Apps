@@ -4,12 +4,17 @@
  */
 #ifndef CLIENT_H
 #define CLIENT_H
+
 #include <memory>
 #include <string>
 #include <vector>
 #include "Lesson.h"
 #include "ClientType.h"
 
+/**
+ * @class Lesson
+ * @brief Klasa lesson, z której metod klasa Client często korzysta.
+ */
 class Lesson;
 
     /**
@@ -28,9 +33,9 @@ public:
     * @param schoolClass Klasa ucznia
     * @param plannedLessons Zaplanowane lekcje
     * @param clientType Typ klienta
+    * @param extensionLevel Poziom rozszerzony
     */
-
-    Client(const std::string& firstName, const int& clientID,const int& schoolClass, std::shared_ptr<ClientType> clientType);
+    Client(const std::string& firstName, const int& clientID,const int& schoolClass, std::shared_ptr<ClientType> clientType,  bool extensionLevel = false);
 
     /**
      * @brief Metoda pobierająca informacje o kliencie.
@@ -64,8 +69,18 @@ public:
      */
     const int& getClientID() const;
         
+    /**
+     * @brief Metoda pobierająca klasę klienta.
+     *
+     * @return Klasa klienta.
+     */        
     const int& getSchoolClass() const;
-    
+
+    /**
+     * @brief Metoda zmieniająca klasę klienta.
+     *
+     * @return Nowa klasa klienta.
+     */    
     void setSchoolClass(const int& schoolClass);
     
     /**
@@ -92,8 +107,6 @@ public:
     /**
      * @brief Metoda ustawiająca typ klienta.
      *
-     * Ustawia nowy typ klienta.
-     *
      * @param newClientType Nowy typ klienta.
      */
    void setClientType(std::shared_ptr<ClientType> newClientType);
@@ -106,8 +119,25 @@ public:
     */
     float applyDiscount(float price) const;
     
-    std::string getClientType() const;
-
+    /**
+    * @brief Metoda sprawdzająca czy klient jest na poziomie rozszerzonym.
+    *
+    * @return extensionLevel Flaga określająca poziom rozszerzony.
+    */
+    bool isExtensionLevel() const;
+    
+    /**
+    * @brief Metoda ustawiająca nowy poziom rozszerzeny klientowi.
+    *
+    * @param extensionLevel wartość określająca, czy klient jest na poziomie rozszerzonym.
+    */
+    void setExtensionLevel(bool newExtensionLevel);
+    
+    /**
+    * @brief Metoda przypisująca lekcję do klienta.
+    *
+    * @param Wskaźnik na lekcję.
+    */
     void addLesson(const std::shared_ptr<Lesson>& lesson);
         
     /**
@@ -116,11 +146,13 @@ public:
      * Niszczy obiekt klasy Client.
      */
     ~Client();
+    
 private:
     std::string firstName; /**< Imię klienta */
     const int clientID; /**< Numer klienta */
     int schoolClass; /**< Klasa klienta */
-    std::vector<std::shared_ptr<Lesson>> plannedLessons;
-    std::shared_ptr<ClientType> clientType;
+    std::vector<std::shared_ptr<Lesson>> plannedLessons; /**< Zaplanowane lekcje klienta */
+    std::shared_ptr<ClientType> clientType; /**< Typ (szkoła) klienta */
+    bool extensionLevel; /**< Klient na poziomie rozszerzonym */
  };
 #endif

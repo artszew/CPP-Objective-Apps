@@ -2,7 +2,6 @@
 #define TEACHER_H
 
 #include <memory>
-#include <string>
 #include <vector>
 #include "Lesson.h" // Dodano nagłówek Lesson.h dla vector plannedLessons
 
@@ -15,14 +14,14 @@ class Teacher : public std::enable_shared_from_this<Teacher> {
 
 public:
     /**
-     * @brief Konstruktor parametrowy klasy nauczyciel.
+     * @brief Lista inicjalizacyjna klasy nauczyciel.
      *
      * @param firstName Imię nauczyciela.
      * @param basePrice Cena za 1 godzinę zajęć.
      * @param teacherID Identyfikator nauczyciela.
      * @param plannedLessons Wektor planowanych lekcji.
      */
-    Teacher(const std::string& firstName, unsigned int basePrice,const int teacherID);
+    Teacher(const std::string& firstName, int basePrice,const int teacherID);
 
      ~Teacher();
         
@@ -58,14 +57,14 @@ public:
      *
      * @param newBasePrice Nowa cena za 1 godzinę zajęć.
      */
-    void setBasePrice(unsigned int newBasePrice);
+    void setBasePrice(int newBasePrice);
 
     /**
      * @brief Metoda pobierająca cenę za 1 godzinę zajęć.
      *
      * @return Cena za 1 godzinę zajęć.
      */
-    unsigned int getBasePrice() const;
+    int getBasePrice() const;
 
     /**
      * @brief Metoda pobierająca identyfikator nauczyciela.
@@ -90,7 +89,7 @@ public:
      std::vector<std::shared_ptr<Lesson>> getPlannedLessons() const;
 private:
     std::string firstName; /**< Imię nauczyciela */
-    unsigned int basePrice; /**< Cena za 1 podstawową godzinę zajęć */
+    int basePrice; /**< Cena za 1 podstawową godzinę zajęć */
     const int teacherID; /**< Identyfikator nauczyciela */
     std::vector<std::shared_ptr<Lesson>> plannedLessons; /**< Wektor planowanych lekcji */
 };

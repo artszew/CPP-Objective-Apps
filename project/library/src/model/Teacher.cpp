@@ -2,18 +2,27 @@
  * @file Teacher.h
  * @brief Plik zawierający definicje metod klasy Teacher, która reprezentuje nauczyciela.
  */
+
+  /**
+ * @brief Headery klas, których metody są wykorzystywane w klasie Teacher
+ * @path_to Teacher.h
+ * @path_to typedefs.h
+ */
 #include <iostream>
 #include "../../library/include/model/Teacher.h"
 #include "../../library/include/typedefs.h"
 
 using namespace std;
 
-//lista inicjalizacyjna
-Teacher::Teacher(const string& firstName, unsigned int basePrice,const int teacherID)
+    /**
+     * @brief Lista inicjalizacyjna klasy nauczyciel.
+     *
+     * @param firstName Imię nauczyciela.
+     * @param basePrice Cena za 1 godzinę zajęć.
+     * @param teacherID Identyfikator nauczyciela.
+     */
+Teacher::Teacher(const string& firstName, int basePrice, const int teacherID)
     : firstName(firstName), basePrice(basePrice), teacherID(teacherID){}
-
-
-// Metody dostępowe
 
     /**
      * @brief Pobiera parametry pojazdu.
@@ -50,7 +59,7 @@ void Teacher::setFirstName(const string& newFirstName) {
      *
      * @return Cena za 1 godzinę zajęć.
      */
- unsigned int Teacher::getBasePrice() const {
+int Teacher::getBasePrice() const {
     return basePrice;
 }
 
@@ -61,9 +70,9 @@ void Teacher::setFirstName(const string& newFirstName) {
      *
      * @param newBasePrice Nowa cena za 1 godzinę zajęć.
      */
-void Teacher::setBasePrice(unsigned int basePrice) {
-     { 
-        this->basePrice = basePrice;
+void Teacher::setBasePrice(int newBasePrice) {
+     if (newBasePrice>0){
+        this->basePrice = newBasePrice;
     }
 }
 
@@ -76,19 +85,35 @@ void Teacher::setBasePrice(unsigned int basePrice) {
     return teacherID;
 }
 
+/**
+ * @brief Dodaje lekcję do listy zaplanowanych lekcji nauczyciela.
+ *
+ * @param lesson Wskaźnik do lekcji do dodania.
+ */
     void Teacher::addLesson(const std::shared_ptr<Lesson>& lesson) {
     plannedLessons.push_back(lesson);
 }
 
+/**
+ * @brief Pobiera listę zaplanowanych lekcji nauczyciela.
+ *
+ * @return Wektor wskaźników do zaplanowanych lekcji.
+ */
     std::vector<std::shared_ptr<Lesson>> Teacher::getPlannedLessons() const {
     return plannedLessons;
 }
 
+/**
+ * @brief Usuwa lekcję z listy zaplanowanych lekcji nauczyciela.
+ *
+ * @param lesson Wskaźnik do lekcji do usunięcia.
+ */
    void Teacher::removePlannedLesson(const std::shared_ptr<Lesson>& lesson) {
     auto it = std::remove(plannedLessons.begin(), plannedLessons.end(), lesson);
     plannedLessons.erase(it, plannedLessons.end());
 }
 
-// destruktor klasy nauczyciel
+/**
+ * @brief Destruktor klasy GroupCourse.
+ */
 Teacher::~Teacher() {}
-

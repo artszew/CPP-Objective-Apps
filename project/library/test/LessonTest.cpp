@@ -132,34 +132,32 @@ BOOST_AUTO_TEST_CASE(SetSubject_EmptyString)
 }
 BOOST_AUTO_TEST_SUITE_END()
 
-BOOST_AUTO_TEST_SUITE(LessonTypesTests)
+BOOST_AUTO_TEST_SUITE(LessonsTypesTests)
 
 /**
  * @brief Przypadek do testowania lekcji indywidualnych dla klienta ze szkoły podstawowej.
  */
-BOOST_AUTO_TEST_CASE(TestIndividualLesson) {
+BOOST_AUTO_TEST_CASE(TestPrimarySchoolIndividualLessons) {
     // Arrange
-    auto client1 = std::make_shared<Client>("Jan", 1, 6, std::make_shared<PrimarySchool>()); //klasa 4-6
-    auto client2 = std::make_shared<Client>("Jan", 1, 8, std::make_shared<PrimarySchool>()); // klasa 7-8
+    auto client1 = std::make_shared<Client>("Jan", 1, 6, std::make_shared<PrimarySchool>()); //szkola podstawowa
     auto teacher = std::make_shared<Teacher>("Artur", 80, 1);
     pt::ptime beginTime = pt::second_clock::local_time()+ pt::hours(2);
     auto individual1 = std::make_shared<Individual>(1, beginTime, 1, "Math", client1, teacher, false, false); // normalna lekcja klienta 1
     auto individual2 = std::make_shared<Individual>(2, beginTime, 1, "Math", client1, teacher, true, false); // pierwsza lekcja klienta1
     auto individual3 = std::make_shared<Individual>(3, beginTime, 1, "Math", client1, teacher, true, true); // pierwsza lekcja stacjonarna klienta1
-    auto individual4 = std::make_shared<Individual>(4, beginTime, 1, "Math", client1, teacher, true, true); // normalna lekcja stacjonarna klienta1
-    auto individual5 = std::make_shared<Individual>(5, beginTime, 1, "Math", client2, teacher, false, false); // normalna lekcja klienta2
+    auto individual4 = std::make_shared<Individual>(4, beginTime, 1, "Math", client1, teacher, false, true); // normalna lekcja stacjonarna klienta1
+    
     // Act
     float price1 = individual1->getLessonPrice();
     float price2 = individual2->getLessonPrice();
     float price3 = individual3->getLessonPrice();
     float price4 = individual4->getLessonPrice();
-    float price5 = individual5->getLessonPrice();
+
     // Assert
-    BOOST_TEST(price1 == 40);
-    BOOST_TEST(price2 == 20);
-    BOOST_TEST(price3 == 22);
-    BOOST_TEST(price4 == 44);
-    BOOST_TEST(price5 == 60);
+    BOOST_TEST(price1 == 60);
+    BOOST_TEST(price2 == 30);
+    BOOST_TEST(price3 == 33);
+    BOOST_TEST(price4 == 66);
 }
 
 
@@ -167,28 +165,45 @@ BOOST_AUTO_TEST_CASE(TestIndividualLesson) {
 /**
  * @brief Przypadek do testowania lekcji grupowych dla klienta ze szkoły podstawowej.
  */
-BOOST_AUTO_TEST_CASE(TestGroupCourseLesson) {
+BOOST_AUTO_TEST_CASE(TestPrimarySchoolGroupCourseLesson) {
     // Arrange
     auto client1 = std::make_shared<Client>("Jan", 1, 6, std::make_shared<PrimarySchool>()); //klasa 4-6
-    auto client2 = std::make_shared<Client>("Jan", 1, 8, std::make_shared<PrimarySchool>()); // klasa 7-8
     auto teacher = std::make_shared<Teacher>("Artur", 80, 1);
     pt::ptime beginTime = pt::second_clock::local_time()+ pt::hours(2);
     auto groupCourse1 = std::make_shared<GroupCourse>(1, beginTime, 1, "Math", client1, teacher, AmountOfMembers::Two); // lekcja w grupie 2-osobowej klienta1
     auto groupCourse2 = std::make_shared<GroupCourse>(2, beginTime, 1, "Math", client1, teacher, AmountOfMembers::Three); // lekcja w grupie 3-osobowej klienta1
     auto groupCourse3 = std::make_shared<GroupCourse>(3, beginTime, 1, "Math", client1, teacher, AmountOfMembers::Four); // lekcja w grupie 4-osobowej klienta1
-    auto groupCourse4 = std::make_shared<GroupCourse>(4, beginTime, 1, "Math", client2, teacher, AmountOfMembers::Two); // lekcja w grupie 2-osobowej klienta2
 
     // Act
     float price1 = groupCourse1->getLessonPrice();
     float price2 = groupCourse2->getLessonPrice();
     float price3 = groupCourse3->getLessonPrice();
-    float price4 = groupCourse4->getLessonPrice();
-
+    
     // Assert
-    BOOST_TEST(price1 == 32);
-    BOOST_TEST(price2 == 28);
-    BOOST_TEST(price3 == 24);
-    BOOST_TEST(price4 == 48);
+    BOOST_TEST(price1 == 48);
+    BOOST_TEST(price2 == 42);
+    BOOST_TEST(price3 == 36);
+}
+
+/**
+ * @brief Przypadek do testowania lekcji grupowych dla klienta ze szkoły sredniej
+ */
+BOOST_AUTO_TEST_CASE(TestSecondarySchoolGroupCourseLesson) {
+    // Arrange
+    auto client1 = std::make_shared<Client>("Jan", 1, 3, std::make_shared<SecondarySchool>()); // uczen szkoly sredniej bez rozszerzenia 
+    auto client2 = std::make_shared<Client>("Jan", 2, 3, std::make_shared<SecondarySchool>(), true);
+    auto teacher = std::make_shared<Teacher>("Artur", 80, 1);
+    pt::ptime beginTime = pt::second_clock::local_time()+ pt::hours(2);
+    auto groupCourse1 = std::make_shared<GroupCourse>(1, beginTime, 1, "Math", client1, teacher, AmountOfMembers::Two); // lekcja w grupie 2-osobowej klienta1
+    auto groupCourse2 = std::make_shared<GroupCourse>(2, beginTime, 1, "Math", client2, teacher, AmountOfMembers::Two); // lekcja w grupie 2-osobowej klienta2
+    
+    // Act
+    float price1 = groupCourse1->getLessonPrice();
+    float price2 = groupCourse2->getLessonPrice();
+    
+    // Assert
+    BOOST_TEST(price1 == 64);
+    BOOST_TEST(price2 == 80);
 }
 
 BOOST_AUTO_TEST_SUITE_END()

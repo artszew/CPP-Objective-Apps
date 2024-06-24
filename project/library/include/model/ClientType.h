@@ -20,14 +20,14 @@ public:
      * @param price Cena, dla której obliczana jest zniżka.
      * @return Wartość zniżki.
      */
-    virtual float applyDiscount(float price) const = 0;
+    virtual float applyDiscount(float price) const = 0; //funkcja czysto wirtualna
 
     /**
      * @brief Pobiera informacje o typie klienta.
      * @return Informacje o typie klienta.
      */
-    virtual std::string getInfo() const = 0;
-
+    virtual std::string getInfo() const = 0; //funkcja czysto wirtualna
+    
     /**
      * @brief Wirtualny destruktor dla klasy ClientType.
      */
@@ -39,7 +39,7 @@ public:
  */
 class PrimarySchool : public ClientType {
 public:
-     float applyDiscount(float price) const override;
+    float applyDiscount(float price) const override;
     std::string getInfo() const override;
 };
 
@@ -47,13 +47,10 @@ public:
  * @brief Klasa reprezentująca ucznia szkoły średniej.
  */
 class SecondarySchool : public ClientType {
-private:
-    bool extensionLevel;
 public:
     float applyDiscount(float price) const override;
     std::string getInfo() const override;
-    bool isExtensionLevel() const;
-
+    
 };
 
 /**
@@ -66,4 +63,5 @@ public:
 };
 
 #endif // CLIENTTYPE_H
+
 
