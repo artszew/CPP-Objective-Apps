@@ -58,7 +58,7 @@
 - [x] Dziedziczenie, abstrakcja i polimorfizm (uzasadnione dziedzicznie, gdzie przynajmniej dwie klasy pochodne różnią się zachowaniem, metody i destruktory wirtualne)
 - [x] Pojedyncza odpowiedzialność klas (właściwe rozdzielenie odpowiedzialności między klasami)
 - [x] Testy dla metod w klasach logiki aplikacji (pokrycie metod testami, ich sensowność oraz poprawne przechodzenie wszystkich testów)
-- [] Użycie wyjątków do sygnalizowania błędów (w uzasadnionych przypadkach hierarchia klas wyjątków)
+- [x] Użycie wyjątków do sygnalizowania błędów (w uzasadnionych przypadkach hierarchia klas wyjątków) TODO: dodać obsluge wyjatkow w logice biznesowej
 - [x] Odseparowanie logiki aplikacji od klas interfejsu użytkownika i/lub klas odpowiedzialnych za składowanie danych
 - [x] Wykorzystanie w uzasadniony sposób mechanizmu delegacji (na przykład w wybranym wzorcu projektowym)
 - [x] Prawidłowe wykorzystanie sprytnych wskaźników do zarządzania dynamicznie alokowaną pamięcią
@@ -66,8 +66,8 @@
 - [x] Jednolity styl kodowania zgodny z jednym ze standardów (formatowanie kodu, nazewnictwo klas, metod, pól itd.)
 - [x] Właściwe komentowanie kodu źródłowego (stopień pokrycia, szczegółowość komentarzy oraz możliwość wykorzystania narzędzi do generowania dokumentacji)
 - [x] Korzystanie w uzasadniony sposób z udogodnień języka C++98 (typedef, enum, przestrzenie nazw, przeciążenia operatorów)
-- [] Korzystanie w uzasadniony sposób z biblioteki standardowej języka C++98 (kolekcje, algorytmy, funktory, strumienie)
+- [X] Korzystanie w uzasadniony sposób z biblioteki standardowej języka C++98 (kolekcje, algorytmy, funktory, strumienie)
 - [x] Korzystanie w uzasadniony sposób z udogodnień języka i bibliotek standardowej języka C++1x/C++2x innych niż sprytne wskaźniki
 - [x] Prawidłowa komunikacja aplikacji z użytkownikiem (wystarczy interfejs tekstowy)
-- [] Utrwalanie stanu działania aplikacji na dysku w celu jego późniejszego wczytania (wystarczy wykorzystanie plików)
-- [] Uzasadnione wykorzystanie własnych klas, funkcji i metod szablonowych (programowanie generyczne)
+- TODO: Utrwalanie stanu działania aplikacji na dysku w celu jego późniejszego wczytania (wystarczy wykorzystanie plików)
+- [X] Uzasadnione wykorzystanie własnych klas, funkcji i metod szablonowych (programowanie generyczne)
